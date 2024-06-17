@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attractive Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000000;
+        }
+
+        canvas {
+            border: 2px solid #1900ff;
+        }
+
+        #gameCanvas {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .player {
+            background-color: transparent;
+        }
+
+        .falling-object {
+            background-color: transparent;
+        }
+
+        .game-over {
+            font-size: 36px;
+            font-weight: bold;
+            color: red;
+            display: none;
+            /* Initially hidden */
+        }
+
+        #title {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">CATCH THE OBJECT</div>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div id="gameOver" class="game-over">Game Over</div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gameOverText = document.getElementById('gameOver');
+
+        // Player properties
+        const player = {
+            x: canvas.width / 2,
+            y: canvas.height - 50,
+            width: 100,
+            height: 25,
+            speed: 5
+        };
+
+        // Falling object properties
+        const fallingObject = {
+            x: Math.random() * canvas.width,
+            y: 0,
+            width: 30,
+            height: 20,
+            speed: 2
+        };
+
+        // Score
+        let score = 0;
+        let gameover = false;
+
+        function drawPlayer() {
+            ctx.fillStyle = 'blue'; // Change to your player color or image
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+        }
+
+        function drawFallingObject() {
+            ctx.fillStyle = 'red'; // Change to your falling object color or image
+            ctx.fillRect(fallingObject.x, fallingObject.y, fallingObject.width, fallingObject.height);
+        }
+
+        function drawGameOver() {
+            gameOverText.style.display = 'block';
+        }
+
+        function update() {
+            if (gameover) {
+                drawGameOver();
+                return;
+            }
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Move the player left and right
+            if (rightPressed && player.x < canvas.width - player.width) {
+                player.x += player.speed;
+            } else if (leftPressed && player.x > 0) {
+                player.x -= player.speed;
+            }
+
+            // Move the falling object
+            fallingObject.y += fallingObject.speed;
+
+            // Check for collision
+            if (
+                fallingObject.y + fallingObject.height > player.y &&
+                fallingObject.x > player.x &&
+                fallingObject.x < player.x + player.width
+            ) {
+                // Object caught
+                fallingObject.y = 0;
+                fallingObject.x = Math.random() * canvas.width;
+                score += 10; // Increase the score
+            }
+
+            // Check if the falling object is missed
+            if (fallingObject.y > canvas.height) {
+                gameover = true;
+            }
+
+            drawPlayer();
+            drawFallingObject();
+
+            // Display the score
+            ctx.font = '24px Arial';
+            ctx.fillStyle = 'white';
+            ctx.fillText('Score: ' + score, 10, 30);
+
+            requestAnimationFrame(update);
+        }
+
+        // Keyboard input
+        let leftPressed = false;
+        let rightPressed = false;
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') {
+                leftPressed = true;
+            } else if (event.key === 'ArrowRight') {
+                rightPressed = true;
+            }
+        });
+
+        document.addEventListener('keyup', (event) => {
+            if (event.key === 'ArrowLeft') {
+                leftPressed = false;
+            } else if (event.key === 'ArrowRight') {
+                rightPressed = false;
+            }
+        });
+
+        update();
+    </script>
+</body>
+</html>
