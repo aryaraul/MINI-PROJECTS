@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://e1.pxfuel.com/desktop-wallpaper/414/928/desktop-wallpaper-car-logos-collage-logo-car.jpg');
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: #aaa2a2;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #0033ff;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #000000;
+}
+
+#feedback {
+    font-weight: bold;
+    margin-top: 10px;
+}
