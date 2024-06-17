@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stack It Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1 style="color:black ; text-align:center">CHROMATIC CLIMBER</h1>
+        <div class="stack-container">
+            <div id="stack" class="stack"></div>
+        </div>
+        <div class="block-container">
+            <div id="block" class="block"></div>
+        </div>
+        <button id="stack-button">Stack It</button>
+        <button id="change-color-button">Change Color</button>
+    </div>
+    <div id="game-over-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Game Over!</p>
+            <p>Click "Restart" to play again.</p>
+            <button id="restart-button">Restart</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
